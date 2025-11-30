@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_podium_attendance_form" model="ir.ui.view">
+        <field name="name">podium.attendance.form</field>
+        <field name="model">podium.attendance</field>
+        <field name="arch" type="xml">
+            <form string="Hoja de Asistencia">
+                <header>
+                    <button name="action_generate_lines" string="Generar Lista" type="object" class="oe_highlight" invisible="state == 'confirmed'"/>
+                    <button name="action_confirm" string="Confirmar" type="object" class="oe_highlight" invisible="state == 'confirmed'"/>
+                    <button name="action_draft" string="Volver a Borrador" type="object" invisible="state == 'draft'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="date" readonly="state == 'confirmed'"/>
+                        </group>
+                        <group>
+                            <field name="category_id" readonly="state == 'confirmed'"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Atletas">
+                            <field name="line_ids" readonly="state == 'confirmed'">
+                                <list editable="bottom" decoration-danger="status == 'absent'" decoration-success="status == 'present'" decoration-warning="status == 'excused'">
+                                    <field name="athlete_id" readonly="1"/>
+                                    <field name="status"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_podium_attendance_list" model="ir.ui.view">
+        <field name="name">podium.attendance.list</field>
+        <field name="model">podium.attendance</field>
+        <field name="arch" type="xml">
+            <list string="Hojas de Asistencia" decoration-info="state == 'draft'" decoration-success="state == 'confirmed'">
+                <field name="date"/>
+                <field name="name"/>
+                <field name="category_id"/>
+                <field name="state" widget="badge" decoration-info="state == 'draft'" decoration-success="state == 'confirmed'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_podium_attendance" model="ir.actions.act_window">
+        <field name="name">Asistencias</field>
+        <field name="res_model">podium.attendance</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,274 @@
+/* Clean & Minimal Theme */
+:root {
+    --primary-color: #0f172a;
+    /* Slate 900 */
+    --secondary-color: #64748b;
+    /* Slate 500 */
+    --accent-color: #2563eb;
+    /* Blue 600 */
+    --success-color: #10b981;
+    /* Emerald 500 */
+    --warning-color: #f59e0b;
+    /* Amber 500 */
+    --danger-color: #ef4444;
+    /* Red 500 */
+    --bg-color: #f8fafc;
+    /* Slate 50 */
+    --border-color: #e2e8f0;
+    /* Slate 200 */
+    --card-radius: 8px;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--primary-color);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Navbar Minimal */
+#top_menu_container {
+    background: #ffffff !important;
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: none !important;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: var(--secondary-color) !important;
+    font-weight: 500;
+}
+
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .nav-link.active {
+    color: var(--primary-color) !important;
+}
+
+/* Hero Section - Flat Dark */
+.bg-sport-gradient {
+    background-color: #ffffff;
+    border-bottom: 1px solid var(--border-color);
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+/* Typography overrides for Hero when background is white */
+.hero-title {
+    color: var(--primary-color);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+.hero-subtitle {
+    color: var(--secondary-color);
+}
+
+.hero-badge {
+    background: #f1f5f9;
+    color: var(--primary-color);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1rem !important;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* Cards - Clean Bordered */
+.card-sport {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--card-radius);
+    box-shadow: none;
+    transition: none;
+    /* No animation */
+}
+
+.card-header-sport {
+    background: #ffffff;
+    border-bottom: 1px solid var(--border-color);
+    font-weight: 600;
+    color: var(--primary-color);
+    padding: 1rem 1.5rem;
+}
+
+/* Athlete Card */
+.athlete-card {
+    background: #ffffff;
+}
+
+.athlete-avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--border-color);
+    background: #f1f5f9;
+}
+
+.athlete-status-indicator {
+    width: 10px;
+    height: 10px;
+    background-color: var(--success-color);
+    border: 2px solid #ffffff;
+}
+
+/* Badges - Flat */
+.badge-modern {
+    padding: 0.35em 0.65em;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0;
+}
+
+.badge-gradient-primary {
+    background: #eff6ff;
+    color: var(--accent-color);
+    border: 1px solid #dbeafe;
+    box-shadow: none;
+}
+
+.badge-gradient-success {
+    background: #ecfdf5;
+    color: var(--success-color);
+    border: 1px solid #d1fae5;
+    box-shadow: none;
+}
+
+/* Alerts - Minimal */
+.alert-modern {
+    border: 1px solid var(--border-color);
+    border-radius: var(--card-radius);
+    padding: 1rem;
+    box-shadow: none;
+    background: #ffffff;
+}
+
+.alert-danger.alert-modern {
+    border-left: 4px solid var(--danger-color);
+}
+
+.alert-warning.alert-modern {
+    border-left: 4px solid var(--warning-color);
+}
+
+/* Payment Cards */
+.payment-card {
+    border: 1px solid var(--border-color);
+    border-left-width: 4px;
+    margin-bottom: 0.5rem;
+    background: #ffffff;
+    transition: none;
+}
+
+.payment-card:hover {
+    transform: none;
+    box-shadow: none;
+    background-color: #f8fafc;
+}
+
+.payment-card.overdue {
+    border-left-color: var(--danger-color);
+}
+
+.payment-card.pending {
+    border-left-color: var(--warning-color);
+}
+
+.payment-card.upcoming {
+    border-left-color: var(--accent-color);
+}
+
+/* Stats */
+.stat-card {
+    text-align: center;
+    padding: 0.75rem;
+    border-radius: 6px;
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+}
+
+.stat-value {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--primary-color);
+    background: none;
+    -webkit-text-fill-color: initial;
+}
+
+/* Buttons */
+.btn-modern {
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    font-size: 0.875rem;
+    box-shadow: none;
+    transition: background-color 0.2s;
+}
+
+.btn-modern-primary {
+    background: var(--primary-color);
+    color: white;
+}
+
+.btn-modern-primary:hover {
+    background: #1e293b;
+    transform: none;
+    box-shadow: none;
+}
+
+.btn-modern-outline {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--primary-color);
+}
+
+.btn-modern-outline:hover {
+    background: #f8fafc;
+    color: var(--primary-color);
+    transform: none;
+}
+
+/* Tables */
+.table-modern thead th {
+    background: #f8fafc;
+    color: var(--secondary-color);
+    font-weight: 600;
+    text-transform: none;
+    font-size: 0.8rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.table-modern tbody tr {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.table-modern tbody tr:hover {
+    background-color: #f8fafc;
+    transform: none;
+}
+
+/* Tabs */
+.nav-pills .nav-link {
+    border-radius: 6px;
+    color: var(--secondary-color);
+    font-weight: 500;
+    background: transparent;
+}
+
+.nav-pills .nav-link.active {
+    background: #ffffff;
+    color: var(--primary-color);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border-color);
+}
+
+/* Utilities */
+.divider-gradient {
+    height: 1px;
+    background: var(--border-color);
+    margin: 1.5rem 0;
+}
+
+/* Remove Animations */
+.animate-fade-in-up {
+    animation: none;
+}

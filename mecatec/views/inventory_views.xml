@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit Product Tree View -->
+    <record id="view_product_template_tree_mecatec" model="ir.ui.view">
+        <field name="name">product.template.tree.mecatec</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="arch" type="xml">
+            <!-- Customize if needed, e.g. add columns -->
+            <xpath expr="//field[@name='name']" position="after">
+                <!-- Example: Add a custom field if we had one -->
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_mecatec_inventory" model="ir.actions.act_window">
+        <field name="name">Inventario</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

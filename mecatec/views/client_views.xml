@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_form_mecatec" model="ir.ui.view">
+        <field name="name">res.partner.form.mecatec</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="cedula" string="Cédula"/>
+                <field name="is_mecatec_client" string="Es Cliente Mecatec"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_mecatec_client" model="ir.actions.act_window">
+        <field name="name">Clientes</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('is_mecatec_client', '=', True)]</field>
+        <field name="context">{'default_is_mecatec_client': True}</field>
+    </record>
+</odoo>

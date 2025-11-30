@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit Fleet Vehicle Tree View -->
+    <record id="fleet_vehicle_view_tree_mecatec" model="ir.ui.view">
+        <field name="name">fleet.vehicle.tree.mecatec</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='driver_id']" position="after">
+                <field name="owner_id" string="Propietario" domain="[('is_mecatec_client', '=', True)]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Inherit Fleet Vehicle Form View -->
+    <record id="fleet_vehicle_view_form_mecatec" model="ir.ui.view">
+        <field name="name">fleet.vehicle.form.mecatec</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='driver_id']" position="after">
+                <field name="owner_id" string="Propietario" domain="[('is_mecatec_client', '=', True)]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_mecatec_vehicle" model="ir.actions.act_window">
+        <field name="name">Vehículos</field>
+        <field name="res_model">fleet.vehicle</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+</odoo>

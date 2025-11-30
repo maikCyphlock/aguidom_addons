@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_home_podium" name="Show Podium / Athletes" inherit_id="portal.portal_my_home" priority="30">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Atletas</t>
+                <t t-set="url" t-value="'/my/athletes'"/>
+                <t t-set="placeholder_count" t-value="'athlete_count'"/>
+            </t>
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Pagos</t>
+                <t t-set="url" t-value="'/my/payments'"/>
+                <t t-set="placeholder_count" t-value="'payment_count'"/>
+            </t>
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">Asistencias</t>
+                <t t-set="url" t-value="'/my/attendances'"/>
+                <t t-set="placeholder_count" t-value="'attendance_count'"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="portal_my_athletes" name="Mis Atletas">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Atletas</t>
+            </t>
+            <t t-if="not athletes">
+                <p>No hay atletas registrados.</p>
+            </t>
+            <t t-if="athletes">
+                <t t-call="portal.portal_table">
+                    <thead>
+                        <tr class="active">
+                            <th>Nombre</th>
+                            <th>Categoría</th>
+                            <th>Club</th>
+                            <th>Edad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="athletes" t-as="athlete">
+                            <tr>
+                                <td><span t-field="athlete.name"/></td>
+                                <td><span t-field="athlete.category_id.name"/></td>
+                                <td><span t-field="athlete.club_id.name"/></td>
+                                <td><span t-field="athlete.age"/></td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="portal_my_payments" name="Mis Pagos">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Pagos</t>
+            </t>
+            <t t-if="not payments">
+                <p>No hay pagos registrados.</p>
+            </t>
+            <t t-if="payments">
+                <t t-call="portal.portal_table">
+                    <thead>
+                        <tr class="active">
+                            <th>Referencia</th>
+                            <th>Fecha</th>
+                            <th>Atleta</th>
+                            <th>Monto</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="payments" t-as="payment">
+                            <tr>
+                                <td><span t-field="payment.name"/></td>
+                                <td><span t-field="payment.date"/></td>
+                                <td><span t-field="payment.athlete_id.name"/></td>
+                                <td><span t-field="payment.amount" t-options='{"widget": "monetary", "display_currency": payment.currency_id}'/></td>
+                                <td>
+                                    <span t-if="payment.state == 'paid'" class="badge rounded-pill text-bg-success">Pagado</span>
+                                    <span t-if="payment.state == 'draft'" class="badge rounded-pill text-bg-warning">Borrador</span>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="portal_my_attendances" name="Mis Asistencias">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Asistencias</t>
+            </t>
+            <t t-if="not attendances">
+                <p>No hay asistencias registradas.</p>
+            </t>
+            <t t-if="attendances">
+                <t t-call="portal.portal_table">
+                    <thead>
+                        <tr class="active">
+                            <th>Fecha</th>
+                            <th>Atleta</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="attendances" t-as="attendance">
+                            <tr>
+                                <td><span t-field="attendance.date"/></td>
+                                <td><span t-field="attendance.athlete_id.name"/></td>
+                                <td>
+                                    <span t-if="attendance.status == 'present'" class="badge rounded-pill text-bg-success">Presente</span>
+                                    <span t-if="attendance.status == 'absent'" class="badge rounded-pill text-bg-danger">Ausente</span>
+                                    <span t-if="attendance.status == 'excused'" class="badge rounded-pill text-bg-info">Justificado</span>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

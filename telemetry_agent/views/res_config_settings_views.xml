@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.telemetry</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='user_default_rights']" position="after">
+                <block title="Telemetry" id="telemetry_settings">
+                    <setting string="Telemetry Configuration" help="Configure Telemetry HQ connection">
+                        <div class="row mt16">
+                            <label for="telemetry_client_name" class="col-lg-3 o_light_label"/>
+                            <field name="telemetry_client_name"/>
+                        </div>
+                        <div class="row mt16">
+                            <label for="telemetry_hq_url" class="col-lg-3 o_light_label"/>
+                            <field name="telemetry_hq_url"/>
+                        </div>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_client_instance_manager,Client Instance Manager,model_client_instance,internal_client_control.group_internal_client_manager,1,1,1,1
+access_client_instance_user,Client Instance User,model_client_instance,internal_client_control.group_internal_client_user,1,0,0,0
+access_client_instance_status_manager,Client Instance Status Manager,model_client_module_status,internal_client_control.group_internal_client_manager,1,1,1,1
+access_client_instance_status_user,Client Instance Status User,model_client_module_status,internal_client_control.group_internal_client_user,1,0,0,0
+access_telemetry_module_repo,telemetry.module.repo,model_telemetry_module_repo,internal_client_control.group_internal_client_user,1,1,1,1

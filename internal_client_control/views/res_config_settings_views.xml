@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.internal_client_control</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="90"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="Client Control" string="Client Control" name="internal_client_control">
+                    <block title="GitHub Integration">
+                        <setting help="Token for accessing private repositories">
+                            <field name="github_api_token" password="True"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_internal_client_control_config_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_id" ref="res_config_settings_view_form"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'internal_client_control'}</field>
+    </record>
+
+    <menuitem id="menu_internal_client_control_settings"
+        name="Settings"
+        parent="menu_internal_client_control_root"
+        sequence="100"
+        action="action_internal_client_control_config_settings"
+        groups="base.group_system"/>
+</odoo>

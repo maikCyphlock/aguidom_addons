@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <!-- Remove Odoo Branding from Footer -->
+    <template id="footer_custom" inherit_id="website.layout" name="Footer Customization">
+        <xpath expr="//div[hasclass('o_footer_copyright')]" position="replace">
+            <div class="o_footer_copyright container-fluid py-3 bg-light border-top">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-md-6 text-center text-md-start text-muted">
+                            <span>Copyright &#169; <span t-field="res_company.name"/></span>
+                        </div>
+                        <div class="col-md-6 text-center text-md-end">
+                            <!-- Custom Social Links or Empty -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

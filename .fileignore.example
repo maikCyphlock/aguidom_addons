@@ -1,0 +1,38 @@
+# Telemetry .fileignore
+#
+# Patrones para excluir archivos del cálculo de hash de versión.
+# Funciona similar a .gitignore - un patrón por línea.
+#
+# Ejemplos:
+# *.log          - Ignora todos los archivos .log
+# temp/          - Ignora carpeta temp
+# test_*.py      - Ignora archivos de test
+# static/        - Ignora carpeta static
+
+# Archivos de log
+*.log
+
+# Archivos temporales
+*.tmp
+*.temp
+
+# Archivos de cache/compilados (ya ignorados por defecto)
+# __pycache__
+# *.pyc
+# *.pyo
+
+# Archivos de IDE
+.vscode/
+.idea/
+
+# Documentación
+README.md
+CHANGELOG.md
+
+# Archivos de configuración local
+.env
+*.local
+
+# Carpetas que cambian frecuentemente pero no afectan funcionalidad
+# static/
+# demo/

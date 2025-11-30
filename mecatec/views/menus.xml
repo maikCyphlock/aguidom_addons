@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_mecatec_root" name="Mecatec" sequence="10" web_icon="mecatec,static/description/icon.png"/>
+
+    <menuitem id="menu_mecatec_inventory" name="Inventario" parent="menu_mecatec_root" action="action_mecatec_inventory" sequence="10"/>
+    <menuitem id="menu_mecatec_maintenance" name="Mantenimiento" parent="menu_mecatec_root" action="action_mecatec_maintenance" sequence="20"/>
+    <menuitem id="menu_mecatec_appointment" name="Citas" parent="menu_mecatec_root" action="action_mecatec_appointment" sequence="30"/>
+    <menuitem id="menu_mecatec_vehicle" name="Vehículos" parent="menu_mecatec_root" action="action_mecatec_vehicle" sequence="40"/>
+    <menuitem id="menu_mecatec_client" name="Clientes" parent="menu_mecatec_root" action="action_mecatec_client" sequence="50"/>
+</odoo>

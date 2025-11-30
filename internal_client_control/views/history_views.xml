@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- History Kanban View -->
+    <record id="view_client_module_history_kanban" model="ir.ui.view">
+        <field name="name">client.module.history.kanban</field>
+        <field name="model">client.module.history</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="instance_id" create="false" edit="false">
+                <field name="module_name"/>
+                <field name="change_type"/>
+                <field name="change_date"/>
+                <field name="manifest_version"/>
+                <field name="content_hash"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_top">
+                                <strong class="o_kanban_record_title">
+                                    <field name="module_name"/>
+                                </strong>
+                                <span class="float-end text-muted">
+                                    <field name="change_date"/>
+                                </span>
+                            </div>
+                            <div class="o_kanban_record_body">
+                                <div>
+                                    <span t-if="record.change_type.raw_value == 'install'" class="badge text-bg-success">Install</span>
+                                    <span t-if="record.change_type.raw_value == 'update'" class="badge text-bg-info">Update</span>
+                                    <span t-if="record.change_type.raw_value == 'remove'" class="badge text-bg-danger">Remove</span>
+                                </div>
+                                <div class="mt-2">
+                                    <div t-if="record.manifest_version.value">
+                                        <i class="fa fa-tag me-1"/> <field name="manifest_version"/>
+                                    </div>
+                                    <div t-if="record.content_hash.value" class="text-muted small">
+                                        <i class="fa fa-hashtag me-1"/> <field name="content_hash"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- History List View -->
+    <record id="view_client_module_history_tree" model="ir.ui.view">
+        <field name="name">client.module.history.list</field>
+        <field name="model">client.module.history</field>
+        <field name="arch" type="xml">
+            <list create="false" edit="false" decoration-info="change_type=='update'" decoration-success="change_type=='install'">
+                <field name="change_date"/>
+                <field name="instance_id"/>
+                <field name="module_name"/>
+                <field name="change_type"/>
+                <field name="manifest_version"/>
+                <field name="content_hash"/>
+                <field name="git_branch"/>
+                <field name="git_commit"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Master List View -->
+    <record id="view_telemetry_module_master_tree" model="ir.ui.view">
+        <field name="name">telemetry.module.master.list</field>
+        <field name="model">telemetry.module.master</field>
+        <field name="arch" type="xml">
+            <list create="false" edit="false">
+                <field name="name"/>
+                <field name="latest_version"/>
+                <field name="latest_content_hash"/>
+                <field name="latest_git_branch"/>
+                <field name="latest_git_commit"/>
+                <field name="last_seen_date"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_client_module_history" model="ir.actions.act_window">
+        <field name="name">Module History</field>
+        <field name="res_model">client.module.history</field>
+        <field name="view_mode">kanban,list</field>
+    </record>
+
+    <record id="action_telemetry_module_master" model="ir.actions.act_window">
+        <field name="name">Master Registry</field>
+        <field name="res_model">telemetry.module.master</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <!-- Menus -->
+    <menuitem id="menu_client_history"
+              name="History"
+              parent="menu_internal_client_control_root"
+              action="action_client_module_history"
+              sequence="20"/>
+
+    <menuitem id="menu_module_master"
+              name="Master Registry"
+              parent="menu_internal_client_control_root"
+              action="action_telemetry_module_master"
+              sequence="30"/>
+</odoo>

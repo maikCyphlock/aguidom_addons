@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_ag_podium_base_root" name="Club Deportivo" web_icon="ag_podium_base,static/description/icon.png"/>
+
+    <record id="action_attendance_kiosk" model="ir.actions.client">
+        <field name="name">Kiosco de Asistencia</field>
+        <field name="tag">ag_podium_base.attendance_kiosk</field>
+    </record>
+
+    <menuitem id="menu_ag_podium_kiosk" name="Kiosco (Beta)" parent="menu_ag_podium_base_root" action="action_attendance_kiosk" sequence="5"/>
+
+    <menuitem id="menu_ag_podium_athletes" name="Atletas" parent="menu_ag_podium_base_root" action="action_podium_athlete" sequence="10"/>
+    <menuitem id="menu_ag_podium_attendance" name="Asistencias" parent="menu_ag_podium_base_root" action="action_podium_attendance" sequence="15"/>
+    <menuitem id="menu_ag_podium_payments" name="Mensualidades" parent="menu_ag_podium_base_root" action="action_podium_payment" sequence="20"/>
+    
+    <menuitem id="menu_ag_podium_config" name="Configuración" parent="menu_ag_podium_base_root" sequence="100"/>
+    <menuitem id="menu_ag_podium_clubs" name="Clubes" parent="menu_ag_podium_config" action="action_podium_club" sequence="5"/>
+    <menuitem id="menu_ag_podium_categories" name="Categorías" parent="menu_ag_podium_config" action="action_podium_category" sequence="10"/>
+</odoo>

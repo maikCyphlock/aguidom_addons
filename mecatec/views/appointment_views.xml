@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mecatec_appointment_list" model="ir.ui.view">
+        <field name="name">mecatec.appointment.list</field>
+        <field name="model">mecatec.appointment</field>
+        <field name="arch" type="xml">
+            <list string="Citas">
+                <field name="date" string="Fecha"/>
+                <field name="client_id" string="Cliente" domain="[('is_mecatec_client', '=', True)]"/>
+                <field name="vehicle_id" string="Vehículo"/>
+                <field name="status" string="Estado" widget="badge" decoration-info="status == 'draft'" decoration-primary="status == 'confirmed'" decoration-success="status == 'done'" decoration-muted="status == 'cancelled'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_mecatec_appointment_form" model="ir.ui.view">
+        <field name="name">mecatec.appointment.form</field>
+        <field name="model">mecatec.appointment</field>
+        <field name="arch" type="xml">
+            <form string="Cita">
+                <header>
+                    <field name="status" widget="statusbar" options="{'clickable': '1'}"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="date" string="Fecha"/>
+                            <field name="client_id" string="Cliente" domain="[('is_mecatec_client', '=', True)]"/>
+                        </group>
+                        <group>
+                            <field name="vehicle_id" string="Vehículo"/>
+                        </group>
+                    </group>
+                    <field name="reason" placeholder="Razón de la cita..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_mecatec_appointment_calendar" model="ir.ui.view">
+        <field name="name">mecatec.appointment.calendar</field>
+        <field name="model">mecatec.appointment</field>
+        <field name="arch" type="xml">
+            <calendar string="Citas" date_start="date" color="status">
+                <field name="client_id"/>
+                <field name="vehicle_id"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="action_mecatec_appointment" model="ir.actions.act_window">
+        <field name="name">Citas</field>
+        <field name="res_model">mecatec.appointment</field>
+        <field name="view_mode">list,form,calendar</field>
+    </record>
+</odoo>

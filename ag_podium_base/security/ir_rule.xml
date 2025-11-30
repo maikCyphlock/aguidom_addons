@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Club Rules -->
+        <record id="rule_podium_club_manager" model="ir.rule">
+            <field name="name">Club: Manager sees own club</field>
+            <field name="model_id" ref="model_podium_club"/>
+            <field name="domain_force">[('id', '=', user.partner_id.club_id.id)]</field>
+            <field name="groups" eval="[(4, ref('group_podium_manager'))]"/>
+        </record>
+
+        <record id="rule_podium_club_admin" model="ir.rule">
+            <field name="name">Club: Admin sees all</field>
+            <field name="model_id" ref="model_podium_club"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_podium_admin'))]"/>
+        </record>
+
+        <!-- Athlete Rules -->
+        <record id="rule_podium_athlete_manager" model="ir.rule">
+            <field name="name">Athlete: Manager sees own club athletes</field>
+            <field name="model_id" ref="model_podium_athlete"/>
+            <field name="domain_force">['|', ('club_id', '=', False), ('club_id', '=', user.partner_id.club_id.id)]</field>
+            <field name="groups" eval="[(4, ref('group_podium_manager')), (4, ref('group_podium_coach'))]"/>
+        </record>
+
+        <record id="rule_podium_athlete_admin" model="ir.rule">
+            <field name="name">Athlete: Admin sees all</field>
+            <field name="model_id" ref="model_podium_athlete"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_podium_admin'))]"/>
+        </record>
+
+        <!-- Payment Rules -->
+        <record id="rule_podium_payment_manager" model="ir.rule">
+            <field name="name">Payment: Manager sees own club payments</field>
+            <field name="model_id" ref="model_podium_payment"/>
+            <field name="domain_force">['|', ('club_id', '=', False), ('club_id', '=', user.partner_id.club_id.id)]</field>
+            <field name="groups" eval="[(4, ref('group_podium_manager'))]"/>
+        </record>
+
+        <record id="rule_podium_payment_admin" model="ir.rule">
+            <field name="name">Payment: Admin sees all</field>
+            <field name="model_id" ref="model_podium_payment"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_podium_admin'))]"/>
+        </record>
+
+        <!-- Attendance Rules -->
+        <record id="rule_podium_attendance_manager" model="ir.rule">
+            <field name="name">Attendance: Manager sees own club attendance</field>
+            <field name="model_id" ref="model_podium_attendance"/>
+            <field name="domain_force">['|', ('club_id', '=', False), ('club_id', '=', user.partner_id.club_id.id)]</field>
+            <field name="groups" eval="[(4, ref('group_podium_manager')), (4, ref('group_podium_coach'))]"/>
+        </record>
+
+        <record id="rule_podium_attendance_admin" model="ir.rule">
+            <field name="name">Attendance: Admin sees all</field>
+            <field name="model_id" ref="model_podium_attendance"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_podium_admin'))]"/>
+        </record>
+
+        <!-- Portal Rules -->
+        <record id="rule_podium_athlete_portal" model="ir.rule">
+            <field name="name">Athlete: Portal sees own or represented</field>
+            <field name="model_id" ref="model_podium_athlete"/>
+            <field name="domain_force">['|', ('partner_id', '=', user.partner_id.id), ('representative_id', '=', user.partner_id.id)]</field>
+            <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        </record>
+
+        <record id="rule_podium_payment_portal" model="ir.rule">
+            <field name="name">Payment: Portal sees own athletes payments</field>
+            <field name="model_id" ref="model_podium_payment"/>
+            <field name="domain_force">['|', ('athlete_id.partner_id', '=', user.partner_id.id), ('athlete_id.representative_id', '=', user.partner_id.id)]</field>
+            <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        </record>
+
+        <record id="rule_podium_attendance_line_portal" model="ir.rule">
+            <field name="name">Attendance Line: Portal sees own athletes attendance</field>
+            <field name="model_id" ref="model_podium_attendance_line"/>
+            <field name="domain_force">['|', ('athlete_id.partner_id', '=', user.partner_id.id), ('athlete_id.representative_id', '=', user.partner_id.id)]</field>
+            <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        </record>
+
+    </data>
+</odoo>

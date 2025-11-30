@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Report Action -->
+    <record id="action_report_payment_receipt" model="ir.actions.report">
+        <field name="name">Recibo de Pago</field>
+        <field name="model">podium.payment</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ag_podium_base.report_payment_receipt_document</field>
+        <field name="report_file">ag_podium_base.report_payment_receipt_document</field>
+        <field name="print_report_name">'Recibo - %s - %s' % (object.athlete_id.name, object.date)</field>
+        <field name="binding_model_id" ref="model_podium_payment"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Report Template -->
+    <template id="report_payment_receipt_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="text-center mb-4">
+                            <h2>Recibo de Pago</h2>
+                            <h4><span t-field="o.name"/></h4>
+                        </div>
+
+                        <div class="row mt-4">
+                            <div class="col-6">
+                                <strong>Atleta:</strong>
+                                <div t-field="o.athlete_id.name"/>
+                                <div t-if="o.athlete_id.category_id">
+                                    Categoría: <span t-field="o.athlete_id.category_id.name"/>
+                                </div>
+                            </div>
+                            <div class="col-6 text-end">
+                                <strong>Fecha:</strong>
+                                <div t-field="o.date"/>
+                            </div>
+                        </div>
+
+                        <div class="row mt-5">
+                            <table class="table table-sm table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Concepto</th>
+                                        <th class="text-end">Monto</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            Mensualidad: <span t-field="o.month"/> / <span t-field="o.year"/>
+                                            <t t-if="o.bcv_rate">
+                                                <br/>
+                                                <small class="text-muted">Tasa BCV: <span t-field="o.bcv_rate"/></small>
+                                            </t>
+                                        </td>
+                                        <td class="text-end">
+                                            <span t-field="o.amount" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="row mt-5">
+                            <div class="col-12">
+                                <strong>Notas:</strong>
+                                <p t-field="o.notes"/>
+                            </div>
+                        </div>
+
+                        <div class="row mt-5 pt-5">
+                            <div class="col-6 text-center">
+                                <div style="border-top: 1px solid black; width: 80%; margin: 0 auto;"></div>
+                                <p class="mt-2">Firma y Sello (Club)</p>
+                            </div>
+                            <div class="col-6 text-center">
+                                <div style="border-top: 1px solid black; width: 80%; margin: 0 auto;"></div>
+                                <p class="mt-2">Recibido Conforme</p>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
