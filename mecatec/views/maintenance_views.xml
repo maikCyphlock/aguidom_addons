@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Inherit Maintenance Request Tree View -->
-    <record id="hr_equipment_request_view_tree_mecatec" model="ir.ui.view">
-        <field name="name">maintenance.request.tree.mecatec</field>
+    <!-- Inherit Maintenance Request list View -->
+    <record id="hr_equipment_request_view_list_mecatec" model="ir.ui.view">
+        <field name="name">maintenance.request.list.mecatec</field>
         <field name="model">maintenance.request</field>
-        <field name="inherit_id" ref="maintenance.hr_equipment_request_view_tree"/>
+        <field name="inherit_id" ref="maintenance.hr_equipment_request_view_list"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="after">
                 <field name="client_id" string="Cliente" domain="[('is_mecatec_client', '=', True)]"/>

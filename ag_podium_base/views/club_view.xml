@@ -16,8 +16,8 @@
         </field>
     </record>
 
-    <record id="view_podium_club_tree" model="ir.ui.view">
-        <field name="name">podium.club.tree</field>
+    <record id="view_podium_club_list" model="ir.ui.view">
+        <field name="name">podium.club.list</field>
         <field name="model">podium.club</field>
         <field name="arch" type="xml">
             <list string="Clubes Deportivos">

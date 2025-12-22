@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="avicola_management.QuickLogModal" owl="1">
+        <div class="modal-overlay" t-on-click="close">
+            <div class="quick-log-modal" t-on-click.stop="">
+                <!-- Header -->
+                <div class="modal-header">
+                    <h2 t-esc="title"/>
+                    <button class="btn-close" t-on-click="close">✕</button>
+                </div>
+
+                <!-- Body -->
+                <div class="modal-body">
+                    <!-- Lote Selector -->
+                    <div class="form-group">
+                        <label>Seleccionar Lote:</label>
+                        <select t-model="state.loteId" class="form-select">
+                            <option value="">-- Seleccione --</option>
+                            <t t-foreach="filteredLotes" t-as="lote" t-key="lote.id">
+                                <option t-att-value="lote.id">
+                                    <t t-esc="lote.name"/> - <t t-esc="lote.galpon_id[1]"/> (<t t-esc="lote.edad_dias"/>d)
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+
+                    <!-- Quantity Input (Large for Touch) -->
+                    <div class="form-group quantity-group">
+                        <label>Cantidad:</label>
+                        <div class="quantity-input">
+                            <button class="qty-btn" t-on-click="decrement">−</button>
+                            <input type="number" 
+                                   t-model.number="state.cantidad" 
+                                   class="qty-value"
+                                   min="1"/>
+                            <button class="qty-btn" t-on-click="increment">+</button>
+                        </div>
+                        <!-- Quick increment buttons -->
+                        <div class="quick-btns">
+                            <button class="quick-btn" t-on-click="() => this.incrementBy(5)">+5</button>
+                            <button class="quick-btn" t-on-click="() => this.incrementBy(10)">+10</button>
+                            <button class="quick-btn" t-on-click="() => this.incrementBy(50)">+50</button>
+                        </div>
+                    </div>
+
+                    <!-- Causa (Mortalidad) -->
+                    <div t-if="props.type === 'mortalidad'" class="form-group">
+                        <label>Causa:</label>
+                        <select t-model="state.causa" class="form-select">
+                            <option value="natural">Muerte Natural</option>
+                            <option value="enfermedad">Enfermedad</option>
+                            <option value="asfixia">Asfixia/Calor</option>
+                            <option value="aplastamiento">Aplastamiento</option>
+                            <option value="descarte">Descarte Sanitario</option>
+                            <option value="otro">Otra Causa</option>
+                        </select>
+                    </div>
+
+                    <!-- Clasificación (Recolección) -->
+                    <div t-if="props.type === 'recoleccion'" class="form-group">
+                        <label>Clasificación:</label>
+                        <select t-model="state.clasificacion" class="form-select">
+                            <option value="jumbo">Jumbo (>73g)</option>
+                            <option value="extra_grande">Extra Grande (63-73g)</option>
+                            <option value="grande">Grande (53-63g)</option>
+                            <option value="mediano">Mediano (44-53g)</option>
+                            <option value="pequeno">Pequeño (&lt;44g)</option>
+                            <option value="roto">Rotos/Descarte</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="modal-footer">
+                    <button class="btn-cancel" t-on-click="close">Cancelar</button>
+                    <button class="btn-submit" 
+                            t-att-disabled="!isValid"
+                            t-on-click="submit">
+                        <t t-if="props.type === 'mortalidad'">💀 Registrar Mortalidad</t>
+                        <t t-else="">🥚 Registrar Huevos</t>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

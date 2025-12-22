@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!-- Repo List View -->
-    <record id="view_telemetry_module_repo_tree" model="ir.ui.view">
+    <record id="view_telemetry_module_repo_list" model="ir.ui.view">
         <field name="name">telemetry.module.repo.list</field>
         <field name="model">telemetry.module.repo</field>
         <field name="arch" type="xml">

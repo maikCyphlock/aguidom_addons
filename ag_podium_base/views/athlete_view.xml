@@ -57,8 +57,8 @@
         </field>
     </record>
 
-    <record id="view_podium_athlete_tree" model="ir.ui.view">
-        <field name="name">podium.athlete.tree</field>
+    <record id="view_podium_athlete_list" model="ir.ui.view">
+        <field name="name">podium.athlete.list</field>
         <field name="model">podium.athlete</field>
         <field name="arch" type="xml">
             <list string="Atletas">

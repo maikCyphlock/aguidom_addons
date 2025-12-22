@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="avicola_management.KpiCard" owl="1">
+        <div t-attf-class="kpi-card #{statusClass}">
+            <div class="kpi-icon">
+                <t t-esc="props.icon"/>
+            </div>
+            <div class="kpi-content">
+                <div class="kpi-value">
+                    <t t-esc="props.value"/>
+                </div>
+                <div class="kpi-title">
+                    <t t-esc="props.title"/>
+                </div>
+                <div t-if="props.subtitle" class="kpi-subtitle">
+                    <t t-esc="props.subtitle"/>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

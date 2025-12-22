@@ -45,7 +45,7 @@
     </record>
 
     <!-- History List View -->
-    <record id="view_client_module_history_tree" model="ir.ui.view">
+    <record id="view_client_module_history_list" model="ir.ui.view">
         <field name="name">client.module.history.list</field>
         <field name="model">client.module.history</field>
         <field name="arch" type="xml">
@@ -63,7 +63,7 @@
     </record>
 
     <!-- Master List View -->
-    <record id="view_telemetry_module_master_tree" model="ir.ui.view">
+    <record id="view_telemetry_module_master_list" model="ir.ui.view">
         <field name="name">telemetry.module.master.list</field>
         <field name="model">telemetry.module.master</field>
         <field name="arch" type="xml">

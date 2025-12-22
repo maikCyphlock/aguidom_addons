@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Alimento list View -->
+    <record id="view_avicola_alimento_list" model="ir.ui.view">
+        <field name="name">avicola.alimento.list</field>
+        <field name="model">avicola.alimento</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="name"/>
+                <field name="tipo"/>
+                <field name="marca"/>
+                <field name="stock_kg"/>
+                <field name="stock_minimo"/>
+                <field name="dias_stock_restante"/>
+                <field name="estado" widget="badge"
+                       decoration-success="estado == 'normal'"
+                       decoration-warning="estado == 'bajo'"
+                       decoration-danger="estado in ('critico', 'agotado')"/>
+                <field name="precio_kg"/>
+                <field name="valor_inventario" sum="Total"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Alimento Form View -->
+    <record id="view_avicola_alimento_form" model="ir.ui.view">
+        <field name="name">avicola.alimento.form</field>
+        <field name="model">avicola.alimento</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Nombre del Alimento"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Información">
+                            <field name="tipo"/>
+                            <field name="marca"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                        <group string="Estado">
+                            <field name="estado" widget="badge"
+                                   decoration-success="estado == 'normal'"
+                                   decoration-warning="estado == 'bajo'"
+                                   decoration-danger="estado in ('critico', 'agotado')"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Stock">
+                            <field name="stock_kg"/>
+                            <field name="stock_minimo"/>
+                            <field name="stock_maximo"/>
+                            <field name="consumo_diario_promedio"/>
+                            <field name="dias_stock_restante"/>
+                        </group>
+                        <group string="Valoración">
+                            <field name="precio_kg"/>
+                            <field name="valor_inventario"/>
+                        </group>
+                    </group>
+                    <field name="notas" placeholder="Notas adicionales..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Alimento Action -->
+    <record id="action_avicola_alimento" model="ir.actions.act_window">
+        <field name="name">Inventario de Alimento</field>
+        <field name="res_model">avicola.alimento</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Registrar tipo de alimento
+            </p>
+            <p>
+                Configure los diferentes tipos de alimento para su granja.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="menu_avicola_alimento"
+              name="Alimento"
+              parent="menu_avicola_inventory"
+              action="action_avicola_alimento"
+              sequence="10"/>
+</odoo>

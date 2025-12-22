@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="avicola_management.BarnCard" owl="1">
+        <div class="barn-card" t-on-click="openGalpon">
+            <!-- Header -->
+            <div class="barn-header">
+                <div class="barn-name">
+                    <span class="barn-icon">🏠</span>
+                    <t t-esc="props.galpon.name"/>
+                </div>
+                <span t-attf-class="status-badge #{statusClass}">
+                    <t t-esc="statusLabel"/>
+                </span>
+            </div>
+
+            <!-- Sensors -->
+            <div class="barn-sensors">
+                <div class="sensor">
+                    <span class="sensor-icon">🌡️</span>
+                    <span class="sensor-value">
+                        <t t-esc="props.galpon.temperatura_actual?.toFixed(1) || '--'"/>°C
+                    </span>
+                </div>
+                <div class="sensor">
+                    <span class="sensor-icon">💧</span>
+                    <span class="sensor-value">
+                        <t t-esc="props.galpon.humedad_actual?.toFixed(0) || '--'"/>%
+                    </span>
+                </div>
+            </div>
+
+            <!-- Population -->
+            <div class="barn-population">
+                <div class="pop-row">
+                    <span class="pop-label">🐔 Aves:</span>
+                    <span class="pop-value">
+                        <t t-esc="props.galpon.aves_actuales"/> / <t t-esc="props.galpon.capacidad"/>
+                    </span>
+                </div>
+                <div class="pop-bar">
+                    <div class="pop-bar-fill" 
+                         t-attf-style="width: #{props.galpon.porcentaje_ocupacion || 0}%"/>
+                </div>
+            </div>
+
+            <!-- Lote Info (if active) -->
+            <t t-if="hasLote">
+                <div class="barn-lote" t-on-click.stop="openLote">
+                    <div class="lote-header">
+                        <span class="lote-name">
+                            📋 <t t-esc="lote.name"/>
+                        </span>
+                        <span class="lote-age">
+                            <t t-esc="lote.edad_dias"/> días
+                        </span>
+                    </div>
+                    <div class="lote-raza">
+                        Raza: <t t-esc="lote.raza"/>
+                    </div>
+                    <div class="lote-progress">
+                        <span class="progress-label">Ciclo:</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill" t-att-style="progressStyle"/>
+                        </div>
+                        <span class="progress-value">
+                            <t t-esc="lote.progreso_ciclo?.toFixed(0) || 0"/>%
+                        </span>
+                    </div>
+                    <div class="lote-stats">
+                        <span t-attf-class="stat mortality #{lote.porcentaje_mortalidad > 5 ? 'stat-danger' : lote.porcentaje_mortalidad > 2 ? 'stat-warning' : 'stat-ok'}">
+                            💀 <t t-esc="lote.porcentaje_mortalidad?.toFixed(2) || 0"/>%
+                        </span>
+                        <span class="stat">
+                            📅 <t t-esc="lote.dias_para_salida || 0"/> días restantes
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="barn-actions">
+                    <button class="btn-quick" t-on-click.stop="registrarMortalidad">
+                        💀 Registrar Mortalidad
+                    </button>
+                </div>
+            </t>
+
+            <!-- No Lote State -->
+            <t t-else="">
+                <div class="barn-empty">
+                    <span class="empty-icon">📭</span>
+                    <span>Sin lote activo</span>
+                </div>
+            </t>
+        </div>
+    </t>
+</templates>

@@ -12,7 +12,7 @@
         - Clients (Venezuelan Context)
     """,
     'author': 'Antigravity',
-    'depends': ['base', 'stock', 'maintenance', 'fleet'],
+    'depends': ['base', 'product', 'maintenance', 'fleet'],
     'data': [
         'security/groups.xml',
         'security/ir.model.access.csv',

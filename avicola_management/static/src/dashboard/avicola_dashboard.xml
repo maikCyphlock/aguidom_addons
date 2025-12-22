@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="avicola_management.Dashboard" owl="1">
+        <div class="avicola-dashboard">
+            <!-- Header -->
+            <div class="dashboard-header">
+                <div class="header-content">
+                    <h1>🐔 Dashboard Avícola</h1>
+                    <div class="header-actions">
+                        <!-- Navigation Tabs -->
+                        <div class="nav-tabs">
+                            <button t-att-class="state.activeTab === 'overview' ? 'nav-btn active' : 'nav-btn'"
+                                    t-on-click="() => this.switchTab('overview')">
+                                📊 Resumen
+                            </button>
+                            <button t-att-class="state.activeTab === 'calendar' ? 'nav-btn nav-btn-calendar active' : 'nav-btn nav-btn-calendar'"
+                                    t-on-click="() => this.switchTab('calendar')">
+                                📅 Calendario
+                            </button>
+                        </div>
+                        
+                        <button class="btn-tour" t-on-click="startTour">
+                            ❓ Tutorial
+                        </button>
+                        <button class="btn-refresh" t-on-click="refreshData">
+                            <span class="refresh-icon">↻</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loading State -->
+            <div t-if="state.loading" class="loading-overlay">
+                <div class="spinner"></div>
+                <span>Cargando datos...</span>
+            </div>
+
+            <!-- TAB: OVERVIEW -->
+            <div t-if="state.activeTab === 'overview'" class="tab-content fade-in">
+                <!-- Alerts Banner -->
+                <div t-if="state.alertas.length > 0" class="alerts-banner">
+                    <t t-foreach="state.alertas" t-as="alerta" t-key="alerta_index">
+                        <div t-attf-class="alert-item alert-#{alerta.type}">
+                            <span class="alert-icon" t-esc="alerta.icon"/>
+                            <span t-esc="alerta.message"/>
+                        </div>
+                    </t>
+                </div>
+
+                <!-- KPI Cards -->
+                <div class="kpi-grid">
+                <KpiCard 
+                    title="'Total Aves Vivas'"
+                    value="state.kpis.totalAves"
+                    icon="'🐓'"
+                    status="'success'"
+                    subtitle="'En todos los galpones'"
+                />
+                <KpiCard 
+                    title="'Mortalidad Promedio'"
+                    value="state.kpis.mortalidadPromedio.toFixed(2) + '%'"
+                    icon="'📉'"
+                    status="getMortalityStatus(state.kpis.mortalidadPromedio)"
+                    subtitle="'Acumulada del ciclo'"
+                />
+                <KpiCard 
+                    title="'Galpones Activos'"
+                    value="state.galpones.length"
+                    icon="'🏠'"
+                    status="'info'"
+                    subtitle="'Con lotes en producción'"
+                />
+                <KpiCard 
+                    title="'Alertas Activas'"
+                    value="state.alertas.length"
+                    icon="'⚠️'"
+                    status="state.alertas.length > 0 ? 'warning' : 'success'"
+                    subtitle="'Requieren atención'"
+                />
+                </div>
+            </div> <!-- Close kpi-grid -->
+
+            <!-- Main Content Grid -->
+            <div class="main-grid">
+                <!-- Left: Galpones Grid -->
+                <div class="galpones-section">
+                    <div class="section-header">
+                        <h2>Galpones</h2>
+                    </div>
+                    <div class="galpones-grid">
+                        <t t-foreach="state.galpones" t-as="galpon" t-key="galpon.id">
+                            <BarnCard 
+                                galpon="galpon"
+                                onOpenGalpon="(id) => this.openGalpon(id)"
+                                onOpenLote="(id) => this.openLote(id)"
+                                onQuickLog="(type, loteId) => this.openQuickLog(type, loteId)"
+                            />
+                        </t>
+                        <div t-if="state.galpones.length === 0" class="empty-state">
+                            <span class="empty-icon">🏗️</span>
+                            <p>No hay galpones configurados</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Charts and Inventory -->
+                <div class="charts-section">
+                    <!-- Growth Chart -->
+                    <div class="chart-card">
+                        <div class="chart-container">
+                            <canvas t-ref="growthChart"/>
+                        </div>
+                    </div>
+
+                    <!-- Conversion Chart -->
+                    <div class="chart-card">
+                        <div class="chart-container">
+                            <canvas t-ref="conversionChart"/>
+                        </div>
+                    </div>
+
+                    <!-- Inventory Table -->
+                    <div class="inventory-card">
+                        <h3>📦 Inventario de Alimento</h3>
+                        <table class="inventory-table">
+                            <thead>
+                                <tr>
+                                    <th>Tipo</th>
+                                    <th>Stock (kg)</th>
+                                    <th>Días Rest.</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="state.alimentos" t-as="alimento" t-key="alimento.id">
+                                    <tr>
+                                        <td t-esc="alimento.name"/>
+                                        <td t-esc="alimento.stock_kg.toFixed(1)"/>
+                                        <td t-esc="alimento.dias_stock_restante.toFixed(0)"/>
+                                        <td>
+                                            <span t-attf-class="status-badge status-#{alimento.estado}">
+                                                <t t-esc="alimento.estado"/>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div> <!-- Close Main Grid -->
+            
+
+            <!-- TAB: CALENDAR -->
+            <div t-if="state.activeTab === 'calendar'" class="tab-content fade-in h-100 p-4">
+                <BatchCalendar lotes="state.lotes || []" />
+            </div>
+
+            <!-- Floating Action Button -->
+            <div class="fab-container">
+                <button class="fab fab-main" t-on-click="() => this.state.fabOpen = !this.state.fabOpen">
+                    <span class="fab-icon">+</span>
+                </button>
+                <div t-if="state.fabOpen" class="fab-menu">
+                    <button class="fab fab-secondary" t-on-click="() => this.openQuickLog('mortalidad')">
+                        <span>💀</span>
+                        <span class="fab-label">Mortalidad</span>
+                    </button>
+                    <button class="fab fab-secondary" t-on-click="() => this.openQuickLog('recoleccion')">
+                        <span>🥚</span>
+                        <span class="fab-label">Huevos</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quick Log Modal -->
+            <QuickLogModal 
+                t-if="state.showQuickLog"
+                type="state.quickLogType"
+                lotes="state.lotes || []"
+                selectedLoteId="state.loteSeleccionado"
+                onSubmit="(data) => this.onQuickLogSubmit(data)"
+                onClose="() => this.closeQuickLog()"
+            />
+        </div>
+    </t>
+</templates>

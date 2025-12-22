@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_avicola_galpon_user,avicola.galpon.user,model_avicola_galpon,base.group_user,1,1,1,0
+access_avicola_galpon_manager,avicola.galpon.manager,model_avicola_galpon,base.group_system,1,1,1,1
+access_avicola_lote_user,avicola.lote.user,model_avicola_lote,base.group_user,1,1,1,0
+access_avicola_lote_manager,avicola.lote.manager,model_avicola_lote,base.group_system,1,1,1,1
+access_avicola_mortalidad_user,avicola.mortalidad.user,model_avicola_mortalidad,base.group_user,1,1,1,0
+access_avicola_mortalidad_manager,avicola.mortalidad.manager,model_avicola_mortalidad,base.group_system,1,1,1,1
+access_avicola_alimento_user,avicola.alimento.user,model_avicola_alimento,base.group_user,1,1,1,0
+access_avicola_alimento_manager,avicola.alimento.manager,model_avicola_alimento,base.group_system,1,1,1,1
+access_avicola_recoleccion_user,avicola.recoleccion.user,model_avicola_recoleccion,base.group_user,1,1,1,0
+access_avicola_recoleccion_manager,avicola.recoleccion.manager,model_avicola_recoleccion,base.group_system,1,1,1,1

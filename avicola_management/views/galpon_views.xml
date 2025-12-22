@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Galpon list View -->
+    <record id="view_avicola_galpon_list" model="ir.ui.view">
+        <field name="name">avicola.galpon.list</field>
+        <field name="model">avicola.galpon</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="capacidad"/>
+                <field name="aves_actuales"/>
+                <field name="porcentaje_ocupacion" widget="progressbar"/>
+                <field name="temperatura_actual"/>
+                <field name="estado_sanitario" widget="badge" 
+                       decoration-success="estado_sanitario == 'optimo'"
+                       decoration-warning="estado_sanitario == 'alerta'"
+                       decoration-danger="estado_sanitario == 'critico'"/>
+                <field name="lote_activo_id"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Galpon Form View -->
+    <record id="view_avicola_galpon_form" model="ir.ui.view">
+        <field name="name">avicola.galpon.form</field>
+        <field name="model">avicola.galpon</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="estado_sanitario" widget="badge"
+                           decoration-success="estado_sanitario == 'optimo'"
+                           decoration-warning="estado_sanitario == 'alerta'"
+                           decoration-danger="estado_sanitario == 'critico'"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Nombre del Galpón"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Información General">
+                            <field name="capacidad"/>
+                            <field name="ubicacion"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                        <group string="Estado Actual">
+                            <field name="aves_actuales"/>
+                            <field name="porcentaje_ocupacion" widget="progressbar"/>
+                            <field name="mortalidad_acumulada" widget="percentage"/>
+                            <field name="lote_activo_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Sensores">
+                            <field name="temperatura_actual"/>
+                            <field name="humedad_actual"/>
+                        </group>
+                        <group string="Umbrales de Alerta">
+                            <field name="temperatura_minima"/>
+                            <field name="temperatura_maxima"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Lotes" name="lotes">
+                            <field name="lote_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="raza"/>
+                                    <field name="edad_dias"/>
+                                    <field name="cantidad_actual"/>
+                                    <field name="porcentaje_mortalidad"/>
+                                    <field name="progreso_ciclo" widget="progressbar"/>
+                                    <field name="state" widget="badge"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notas" name="notas">
+                            <field name="notas" placeholder="Observaciones..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Galpon Kanban View -->
+    <record id="view_avicola_galpon_kanban" model="ir.ui.view">
+        <field name="name">avicola.galpon.kanban</field>
+        <field name="model">avicola.galpon</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="name"/>
+                <field name="aves_actuales"/>
+                <field name="capacidad"/>
+                <field name="temperatura_actual"/>
+                <field name="estado_sanitario"/>
+                <field name="lote_activo_id"/>
+                <field name="mortalidad_acumulada"/>
+                <field name="porcentaje_ocupacion"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_content">
+                                <div class="o_kanban_record_top mb-2">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <field name="name"/>
+                                        </strong>
+                                    </div>
+                                    <span t-attf-class="badge #{record.estado_sanitario.raw_value == 'optimo' ? 'bg-success' : record.estado_sanitario.raw_value == 'alerta' ? 'bg-warning' : 'bg-danger'}">
+                                        <field name="estado_sanitario"/>
+                                    </span>
+                                </div>
+                                <div class="o_kanban_record_body">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span>🐔 <field name="aves_actuales"/>/<field name="capacidad"/></span>
+                                        <span>🌡️ <field name="temperatura_actual"/>°C</span>
+                                    </div>
+                                    <div class="progress" style="height: 6px;">
+                                        <div class="progress-bar" 
+                                             t-attf-style="width: #{record.porcentaje_ocupacion.raw_value}%;"
+                                             role="progressbar"/>
+                                    </div>
+                                    <div class="mt-2 small text-muted">
+                                        <span t-if="record.lote_activo_id.raw_value">
+                                            Lote: <field name="lote_activo_id"/>
+                                        </span>
+                                        <span t-else="">Sin lote activo</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Galpon Action -->
+    <record id="action_avicola_galpon" model="ir.actions.act_window">
+        <field name="name">Galpones</field>
+        <field name="res_model">avicola.galpon</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crear primer galpón
+            </p>
+            <p>
+                Configure los galpones de su granja avícola.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="menu_avicola_galpon"
+              name="Galpones"
+              parent="menu_avicola_config"
+              action="action_avicola_galpon"
+              sequence="10"/>
+</odoo>

@@ -21,8 +21,8 @@
         </field>
     </record>
 
-    <record id="view_podium_category_tree" model="ir.ui.view">
-        <field name="name">podium.category.tree</field>
+    <record id="view_podium_category_list" model="ir.ui.view">
+        <field name="name">podium.category.list</field>
         <field name="model">podium.category</field>
         <field name="arch" type="xml">
             <list string="Categorías">

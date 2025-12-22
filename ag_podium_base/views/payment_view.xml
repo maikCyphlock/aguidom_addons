@@ -31,8 +31,8 @@
         </field>
     </record>
 
-    <record id="view_podium_payment_tree" model="ir.ui.view">
-        <field name="name">podium.payment.tree</field>
+    <record id="view_podium_payment_list" model="ir.ui.view">
+        <field name="name">podium.payment.list</field>
         <field name="model">podium.payment</field>
         <field name="arch" type="xml">
             <list string="Mensualidades" decoration-info="state == 'draft'" decoration-success="state == 'paid'">
